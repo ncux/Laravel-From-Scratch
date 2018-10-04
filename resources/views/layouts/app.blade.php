@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{{asset('css/app.css')}}" rel="stylesheet">
+    <title>{{config('app.name', 'Laravel From Scratch')}}</title>
+</head>
+<body>
+
+    <div class="container-fluid mt-2">
+        @include('inc/navbar')
+        @include('inc/messages')
+
+       @yield('content')
+    </div>
+
+
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'article-ckeditor' );
+    </script>
+</body>
+</html>
