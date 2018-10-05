@@ -10,6 +10,7 @@
                 @foreach($posts as $post)
                     <li class="list-group-item my-1">
                         <h4><a href="/posts/{{$post->id}}" target="_blank">{{$post->title}}</a></h4>
+                        <small>Created on {{$post->created_at}} by {{$post->user->name}}</small>
                         <p>{{$post->content}}</p>
                     </li>
 

@@ -8,6 +8,17 @@ use App\Post;
 class PostsController extends Controller
 {
     /**
+     * authentication controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');    //  $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -46,8 +57,9 @@ class PostsController extends Controller
         $post = new Post;
         $post->title = $request->input('title');
         $post->content = $request->input('content');
+        $post->user_id = auth()->user()->id;
         $post->save();
-        return redirect('/posts')->with('success', 'Post successfully created!');
+        return redirect('/home')->with('success', 'Post successfully created!');
     }
 
 
@@ -75,6 +87,13 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post =  Post::find($id);
+
+        // verify it's the right user
+        if (auth()->user()->id !== $post->user_id) {
+            return redirect('/login')->with('error', 'Unauthorized!');
+        }
+
+
         return view('posts/edit')->with('post', $post);
 
     }
@@ -95,7 +114,7 @@ class PostsController extends Controller
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->save();
-        return redirect('/posts')->with('success', 'Post successfully updated!');
+        return redirect('/home')->with('success', 'Post successfully updated!');
     }
 
 
@@ -109,8 +128,15 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post =  Post::find($id);
+
+        // verify it's the right user
+        if (auth()->user()->id !== $post->user_id) {
+            return redirect('/login')->with('error', 'Unauthorized!');
+        }
+
         $post->delete();
-        return redirect('/posts')->with('success', 'Post successfully deleted!');
+        return redirect('/home')->with('success', 'Post successfully deleted!');
+
 
     }
 }
