@@ -8,6 +8,11 @@
 
          <small>Created on {{$post->created_at}} by {{$post->user->name}}</small>
 
+        <div class="img-thumbnail">
+            <img src="/storage/cover_images/{{$post->cover_image}}" alt="Thumbnail" style="width: 100%; height: auto">
+
+        </div>
+
         <p class="lead">{{$post->content}}</p>
 
     </div>
