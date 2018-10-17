@@ -22,7 +22,7 @@
         @if(Auth::user()->id == $post->user_id)
             <a href="/posts/{{$post->id}}/edit" class="btn btn-info my-3">Edit</a>
 
-            {!! Form::open(['action'=>['PostsController@destroy', $post->id], 'method'=>'POST']) !!}
+            {!! Form::open(['action'=>['PostsController@destroy', $post->id], 'method'=>'POST', 'onsubmit'=>'return confirm("Delete this post?")']) !!}
 
                 {{Form::hidden('_method', 'DELETE')}}
                 {{Form::submit('Delete', ['class'=>'btn btn-danger'])}}
